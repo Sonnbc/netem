@@ -2,7 +2,6 @@ from numpy import random as rd
 import sys, os
 
 SIZE = 100000
-device = "eth2"
 
 def main(mean, sigma):
     a = [str(int(x)) for x in rd.lognormal(mean, sigma, SIZE)]
@@ -25,10 +24,11 @@ def main(mean, sigma):
 
     tc_cmd = "tc qdisc replace dev %s root netem delay \
         %sms %sms distribution lognormal" % (device, mu, sigma)
-    print(tc_cmd)
+    #print(tc_cmd)
     os.system(tc_cmd)
 
 if __name__ == '__main__':
     mean = (sys.argv[1])
     sigma = (sys.argv[2])
+    device = (sys.argv[3])
     main(mean, sigma)
